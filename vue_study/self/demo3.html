@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>计算属性</title>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!--   插值语法
+    <div id="root">
+      姓：<input v-model="firstName" type="text" /><br /><br />
+      名：<input v-model="lastName" type="text" /><br /><br />
+      <span>全名：{{firstName + '-' + lastName}}</span> 
+    </div>
+    <script>
+      new Vue({
+        el: "#root",
+        data: {
+          firstName: "",
+          lastName: "",
+        },
+      });
+    </script>
+    -->
+    <!--   methods方法
+    <div id="root">
+      姓：<input v-model="firstName" type="text" /><br /><br />
+      名：<input v-model="lastName" type="text" /><br /><br />
+      <span>全名：{{getFullName()}}</span>
+    </div>
+    <script>
+      new Vue({
+        el: "#root",
+        data: {
+          firstName: "",
+          lastName: "",
+        },
+        methods: {
+          getFullName() {
+            return this.firstName + '-' + this.lastName;
+          },
+        },
+      });
+    </script> 
+    -->
+    <!--   原生案例
+    <script>
+      let p = {
+        firstName: "",
+        lastName: "",
+      };
+      /*
+            什么时候使用defineProperty？
+                追加的属性来自于其他值的加工时
+      */
+      Object.defineProperty(p, "fullName", {
+        set(value) {
+          const arr = value.split("-");
+          this.firstName = arr[0];
+          this.lastName = arr[1];
+        },
+        get() {
+          return this.firstName + "-" + this.lastName;
+        },
+      });
+    </script>
+    -->
+    <!--   computed属性
+    <div id="root">
+      姓：<input v-model="firstName" type="text" /><br /><br />
+      名：<input v-model="lastName" type="text" /><br /><br />
+      <span>全名：{{fullName}}</span>
+    </div>
+    <script>
+      new Vue({
+        el: "#root",
+        data: {
+          firstName: "",
+          lastName: "",
+        },
+        computed: {
+          //   简写形式，只能由修改姓、名来修改全名
+          fullName() {
+            return this.firstName + "-" + this.lastName;
+          },
+          //    完整形式，可由修改姓、名来修改全名，也可通过修改全名而修改姓、名
+          //   fullName: {
+          //     set(value) {
+          //       const arr = value.split("-");
+          //       this.firstName = arr[0];
+          //       this.lastName = arr[1];
+          //     },
+          //     get() {
+          //       return this.firstName + "-" + lastName;
+          //     },
+          //   },
+        },
+      });
+    </script> 
+    -->
+    <!--   监视
+    <div id="root">
+      <input type="text" v-model="firstName" /><br /><br />
+      <input type="text" v-model="lastName" /><br /><br />
+      <h2>全名：{{fullName}}</h2>
+    </div>
+    <script>
+      new Vue({
+        el: "#root",
+        data: {
+          firstName: "深",
+          lastName: "湛",
+          fullName: "",
+        },
+        watch: {
+          // 精简写法
+          //   firstName(newValue, oldValue) {
+          //     console.log("姓由" + oldValue + "修改成了" + newValue);
+          //     this.fullName = newValue + "-" + this.lastName;
+          //   },
+          // 完整写法
+          firstName: {
+            immediate: true,
+            handler(newValue, oldValue) {
+              this.fullName = newValue + "-" + this.lastName;
+              console.log("姓由" + oldValue + "修改成了" + newValue);
+            },
+          },
+          lastName(newValue, oldValue) {
+            console.log("名由" + oldValue + "修改成了" + newValue);
+            this.fullName = this.firstName + "-" + newValue;
+          },
+        },
+      });
+    </script>
+    -->
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>按钮事件</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>本页面所属人为{{msg}}</h2>
+      <button @click="show1">点我展示信息1</button><br /><br />
+      <button @click="show2(666)">点我展示信息2+参数</button><br /><br />
+      <a href="https://www.baidu.com" @click.prevent="show3()"
+        >点我展示信息3（阻止冒泡和默认行为）</a
+      ><br /><br />
+      <div v-on:click="show3()">
+        <a href="https://www.baidu.com" @click.prevent.stop="show3()">
+          点我展示信息3（阻止冒泡和默认行为）</a
+        >
+      </div>
+      <br />
+      <input @keyup.enter="show4" type="text" />
+      <input @keyup="show5" type="text" placeholder="测试按键名称和代码"/>
+    </div>
+    <script>
+      new Vue({
+        el: "#root",
+        data: {
+          msg: "深湛",
+        },
+        methods: {
+          show1(event) {
+            console.log(event.target.innerText);
+            alert("信息1");
+          },
+          show2(number) {
+            alert("信息2" + number);
+          },
+          show3() {
+            alert("信息3");
+          },
+          show4(event) {
+            console.log(event.target.value);
+          },
+          show5(event){
+              console.log(event.key+' '+event.keyCode)
+          }
+        },
+      });
+    </script>
+  </body>
+</html>

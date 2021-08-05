@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../js/vue.js"></script>
+    <title>条件渲染</title>
+    <style>
+        img{
+            width: 500px;
+        }
+    </style>
+  </head>
+  <body>
+    <!-- 绑定样式，忘了再学 -->
+    <!-- 条件渲染 -->
+    <!-- 
+        v-show
+            不会删除DOM节点，仅仅是使用样式隐藏掉
+            适用于切换频率很高的案例
+        v-if, v-else-if, v-else
+            删除DOM节点，整个代码块一起删除
+            适用于切换频率很低的案例
+    -->
+    <div id="root">
+      <h2>今天天气真{{isHot ? '炎热' : '凉快'}}</h2>
+      <button @click="isHot=!isHot">点我切换天气</button>
+      <div v-show="isHot">
+        <img src="../img/01.jpg" alt="" /><br />
+        <span>这边建议尽快打开空调</span>
+      </div>
+      <div v-show="!isHot">
+        <img src="../img/02.jpg" alt="" /><br />
+        <span>这边建议尽快烧起火炉</span>
+      </div>
+    </div>
+    <script>
+      new Vue({
+        el: "#root",
+        data: {
+          isHot: true,
+        },
+      });
+    </script>
+  </body>
+</html>

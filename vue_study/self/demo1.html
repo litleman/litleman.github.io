@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>个人创建</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <style>
+      input {
+        height: 30px;
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <h1>{{msg}}</h1>
+      <h1>您所在地址为：{{address}}</h1>
+      单向数据（v-bind）:
+      <input type="text" :value="speak" />
+      <br /><br />
+      双向数据（v-model）:
+      <input type="text" v-model="speak" />
+    </div>
+
+    <script>
+      new Vue({
+        el: "#root",
+        data: {
+          msg: "你好，大傻子！",
+          address: "成都",
+          speak: "hello you funning !",
+        },
+      });
+
+      /*数据代理start*/
+      let _data = { msg: "hello" };
+      let vm = {};
+      Object.defineProperty(vm, "msg", {
+        set(value) {
+          _data.msg = value;
+        },
+        get() {
+          return _data.msg;
+        },
+      });
+      console.log(vm);
+      console.log(_data);
+      console.log(vm.msg);
+      /*数据代理end*/
+    </script>
+  </body>
+</html>
