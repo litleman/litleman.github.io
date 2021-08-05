@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../js/vue.js"></script>
+    <title>列表过滤</title>
+  </head>
+  <body>
+    <div id="root">
+      <input v-model="keyword" type="text" placeholder="请输入关键字" />
+      <ul>
+        <li v-for="(p,index) in fmtPersons" :key="p.id">
+          {{p.name}}---{{p.sex}}---{{p.age}}岁
+        </li>
+      </ul>
+    </div>
+    <script>
+      new Vue({
+        el: "#root",
+        data: {
+          keyword: "",
+          persons: [
+            { id: "001", name: "周冬雨", sex: "女", age: "18" },
+            { id: "002", name: "马冬梅", sex: "女", age: "38" },
+            { id: "003", name: "周杰伦", sex: "男", age: "41" },
+            { id: "004", name: "温兆伦", sex: "男", age: "23" },
+          ],
+        },
+        computed: {
+          fmtPersons() {
+            /* 
+              const {person,keyword} = this
+              return persons.filter(p => p.name.indexOf(keyword) !== -1)
+            */
+            return this.persons.filter(
+              (p) => p.name.indexOf(this.keyword) !== -1
+            );
+          },
+        },
+        /*   使用watch修改数据会造成数据丢失
+        watch: {
+          keyword(value) {
+            const arr = this.persons.filter(
+              p => p.name.indexOf(value) !== -1
+            );
+            this.persons = arr
+          },
+        },
+        */
+      });
+    </script>
+  </body>
+</html>
